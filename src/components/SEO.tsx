@@ -49,7 +49,7 @@ const SEO = ({
       <meta name="robots" content="index, follow" />
       <meta name="language" content="English" />
       <meta name="revisit-after" content="7 days" />
-
+      <meta name="google-site-verification" content="VilYr19MWGGqh19AubcubO2Rj4Zee3Zru9nYm9ztxZU" />
       {/* Canonical URL */}
       <link rel="canonical" href={url} />
 
