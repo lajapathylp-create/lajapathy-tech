@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -11,12 +11,26 @@ import Navigation from '@/components/Navigation';
 import SEO from '@/components/SEO';
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
-  email: z.string().trim().email('Please enter a valid email').max(255, 'Email must be less than 255 characters'),
-  company: z.string().trim().max(100, 'Company must be less than 100 characters').optional(),
-  budget: z.string().optional(),
-  message: z.string().trim().min(10, 'Message must be at least 10 characters').max(2000, 'Message must be less than 2000 characters'),
+  name: z.string().trim().min(1, 'Name is required').max(100),
+  email: z.string().trim().email('Please enter a valid email').max(255),
+  company: z.string().trim().max(100).optional(),
+  plan: z.string().optional(),
+  message: z.string().trim().min(10).max(2000),
 });
+
+
+const serviceOptions = [
+  'UI/UX Design',
+  'Branding',
+  'Landing Pages',
+  'Full Design Support',
+];
+
+const timelineOptions = [
+  'ASAP',
+  'Within 2 weeks',
+  '1–2 months',
+];
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
@@ -29,8 +43,18 @@ const budgetOptions = [
 ];
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'info@lajapathy.com', href: 'mailto:info@lajapathy.com' },
-  { icon: MapPin, label: 'Location', value: 'Madurai, India', href: null },
+  {
+    icon: Mail,
+    label: 'Email',
+    value: 'info@lajapathy.com',
+    href: 'mailto:info@lajapathy.com',
+  },
+  {
+    icon: MapPin,
+    label: 'Location',
+    value: 'Madurai, India',
+    href: 'https://www.google.com/maps?q=Madurai,India',
+  },
 ];
 
 const Contact = () => {
@@ -39,6 +63,24 @@ const Contact = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
   const formRef = useRef(null);
+
+  const params = new URLSearchParams(window.location.search);
+  const selectedPlan = params.get("plan");
+  const isPlanFlow = Boolean(selectedPlan);
+  const plans = ["Starter", "Growth", "Scale"];
+
+  const [activePlan, setActivePlan] = useState(
+    selectedPlan || "Starter"
+  );
+  const heading = isPlanFlow
+    ? ["Start", "your", `${selectedPlan?.toLowerCase()} plan`]
+    : ["Start", "your design", "request"];
+
+  const planToBudget: Record<string, string> = {
+    Starter: "5k-10k",
+    Growth: "10k-25k",
+    Scale: "25k-50k",
+  };
 
   const heroInView = useInView(heroRef, { once: true });
   const formInView = useInView(formRef, { once: true, margin: '-100px' });
@@ -50,19 +92,77 @@ const Contact = () => {
     reset,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
+    defaultValues: {
+      plan: selectedPlan || "",
+      message: selectedPlan
+        ? `Hi, I'm interested in the ${selectedPlan} plan.\n\nProject details:`
+        : "",
+    }
   });
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log('Form submitted:', { ...data, email: '[REDACTED]' });
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you within 24-48 hours.",
+  useEffect(() => {
+    if (!isPlanFlow) return; // 🚨 important guard
+
+    reset({
+      plan: activePlan,
+      message: `Hi, I'm interested in the ${activePlan} plan.\n\nProject details:`,
     });
-    reset();
+  }, [activePlan, isPlanFlow, reset]);
+
+  const onSubmit = async (data: ContactFormData) => {
+    console.log("🚀 SUBMIT TRIGGERED", data);
+    setIsSubmitting(true);
+
+    try {
+      const payload = {
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        message: data.message,
+        plan: data.plan || "General",
+      };
+
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/send-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      let result = null;
+
+      try {
+        result = await res.json();
+      } catch {
+        result = null; // prevents crash if empty response
+      }
+
+      console.log("API RESPONSE:", result);
+
+      if (!res.ok) {
+        throw new Error(result?.error || "Server error");
+      }
+
+      setIsSubmitted(true);
+
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you within 24-48 hours.",
+      });
+
+      reset();
+
+    } catch (err: any) {
+      console.error("FRONTEND ERROR:", err);
+
+      toast({
+        title: "Error",
+        description: err.message || "Something went wrong. Try again.",
+      });
+    }
+
+    setIsSubmitting(false);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -105,7 +205,7 @@ const Contact = () => {
           </motion.div>
 
           <div className="max-w-4xl">
-            {["Start", 'your design', 'request'].map((text, index) => (
+            {heading.map((text, index) => (
               <div key={text} className="overflow-hidden">
                 <motion.h1
                   initial={{ y: '100%' }}
@@ -147,37 +247,57 @@ const Contact = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-                {contactInfo.map((item, index) => (
-                  <motion.a
-                    key={item.label}
-                    href={item.href || '#'}
-                    className="group relative p-8 border border-border bg-background hover:border-accent transition-all duration-500 flex flex-col justify-between min-h-[200px]"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={formInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                  >
-                    <div className="flex justify-between items-start">
-                      <span className="font-mono text-xs text-muted-foreground uppercase tracking-wider group-hover:text-accent transition-colors">
-                        {item.label}
-                      </span>
-                      <item.icon className="w-6 h-6 text-muted-foreground/50 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
-                    </div>
+                {contactInfo.map((item, index) => {
+                  const isClickable = !!item.href;
 
-                    <div>
-                      <span className="text-xl md:text-2xl font-syne font-bold leading-tight group-hover:text-accent transition-colors break-words">
-                        {item.value}
-                      </span>
-                      {item.href && (
-                        <div className="mt-4 w-8 h-8 rounded-full border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                          <ArrowUpRight className="w-4 h-4 text-accent" />
-                        </div>
-                      )}
-                    </div>
+                  return (
+                    <motion.div
+                      key={item.label}
+                      className={`group relative p-8 border border-border bg-background transition-all duration-500 flex flex-col min-h-[220px]
+                      ${isClickable ? "cursor-pointer hover:border-accent" : "hover:border-accent/50"}
+                      `}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={formInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      onClick={() => {
+                        if (isClickable && item.href) {
+                          window.open(item.href, "_blank");
+                        }
+                      }}
+                    >
+                      {/* Top */}
+                      <div className="flex justify-between items-start">
+                        <span className="font-mono text-xs text-muted-foreground uppercase tracking-wider group-hover:text-accent transition-colors">
+                          {item.label}
+                        </span>
 
-                    {/* Hover Fill Effect */}
-                    <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                  </motion.a>
-                ))}
+                        <item.icon className="w-6 h-6 text-muted-foreground/50 group-hover:text-accent group-hover:scale-110 transition-all duration-300" />
+                      </div>
+
+                      {/* Content */}
+                      <div className="mt-6">
+                        <span className="text-xl md:text-2xl font-syne font-bold leading-[1.2] min-h-[56px] flex items-start group-hover:text-accent transition-colors break-words">
+                          {item.value}
+                        </span>
+
+                        {item.label === "Location" && (
+                          <p className="text-xs text-muted-foreground mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            View on Maps →
+                          </p>
+                        )}
+
+                        {isClickable && (
+                          <div className="mt-4 w-8 h-8 rounded-full border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <ArrowUpRight className="w-4 h-4 text-accent" />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Hover Fill */}
+                      <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    </motion.div>
+                  );
+                })}
               </div>
 
               {/* Social Links */}
@@ -191,6 +311,8 @@ const Contact = () => {
                 <div className="flex flex-wrap gap-4">
                   <motion.a
                     href="https://www.linkedin.com/company/lajapathy/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="px-8 py-4 border border-border text-sm font-bold font-syne hover:bg-foreground hover:text-background hover:border-foreground transition-all duration-300 min-w-[120px] text-center flex items-center justify-center gap-2"
                     initial={{ opacity: 0, y: 10 }}
                     animate={formInView ? { opacity: 1, y: 0 } : {}}
@@ -214,12 +336,57 @@ const Contact = () => {
                 <span className="text-sm font-mono text-accent">03</span>
                 <span className="text-sm font-mono text-muted-foreground tracking-wider">SUBMIT REQUEST</span>
               </div>
+              {isPlanFlow && (
+                <div className="mb-8 p-5 border border-accent/30 bg-accent/5 relative overflow-hidden">
+
+                  {/* subtle glow */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-transparent opacity-40 pointer-events-none" />
+
+                  <div className="relative z-10">
+                    <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-3">
+                      Select Plan
+                    </p>
+
+                    {/* PLAN SWITCHER */}
+                    <div className="flex gap-3 flex-wrap mb-4">
+                      {plans.map((plan) => (
+                        <button
+                          key={plan}
+                          type="button"
+                          onClick={() => setActivePlan(plan)}
+                          className={`px-4 py-2 text-xs font-mono border transition-all
+              ${activePlan === plan
+                              ? "bg-accent text-white border-accent"
+                              : "border-border text-muted-foreground hover:border-accent hover:text-accent"
+                            }`}
+                        >
+                          {plan}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* ACTIVE PLAN DISPLAY */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-syne font-bold text-accent">
+                        {activePlan}
+                      </span>
+
+                      <span className="text-[10px] font-mono text-accent/80">
+                        {activePlan === "Starter" && "Starting ₹69K /month"}
+                        {activePlan === "Growth" && "Typically ₹1.2L – ₹2L /month"}
+                        {activePlan === "Scale" && "Starting ₹2L+ /month"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {isSubmitted ? (
                 <motion.div
+                  key="success"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="h-full flex flex-col items-center justify-center text-center py-20 border border-border bg-card/30"
+                  className="flex flex-col items-center justify-center text-center py-20 border border-border bg-card/30 min-h-[400px]"
                 >
                   <motion.div
                     className="w-20 h-20 rounded-full bg-accent/10 flex items-center justify-center mb-8"
@@ -229,10 +396,13 @@ const Contact = () => {
                   >
                     <CheckCircle className="w-10 h-10 text-accent" />
                   </motion.div>
+
                   <h2 className="text-3xl font-syne font-bold mb-4">Thank you!</h2>
+
                   <p className="text-muted-foreground mb-8 max-w-sm">
-                    Your message has been sent successfully. We'll get back to you within 24-48 hours.
+                    Your message has been sent successfully. We'll get back to you within 24–48 hours.
                   </p>
+
                   <button
                     onClick={() => setIsSubmitted(false)}
                     className="text-accent hover:underline transition-colors"
@@ -245,7 +415,7 @@ const Contact = () => {
                   {/* Corner decorations */}
                   <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-accent/30" />
                   <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-accent/30" />
-
+                  <input type="hidden" value={activePlan} {...register("plan")} />
                   {/* Name Field */}
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -265,7 +435,6 @@ const Contact = () => {
                       <p className="mt-2 text-sm text-destructive">{errors.name.message}</p>
                     )}
                   </div>
-
                   {/* Email Field */}
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
@@ -337,11 +506,17 @@ const Contact = () => {
                       </>
                     ) : (
                       <>
-                        Submit Request
+                        {isPlanFlow
+                          ? `Continue with ${activePlan}`
+                          : "Request Design Support"}
                         <Send className="w-5 h-5" />
+
                       </>
                     )}
                   </motion.button>
+                  <p className="text-xs text-muted-foreground text-center mt-4">
+                    We typically respond within 24 hours
+                  </p>
                 </form>
               )}
             </motion.div>

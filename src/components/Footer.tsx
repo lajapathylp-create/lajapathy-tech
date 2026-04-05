@@ -8,7 +8,6 @@ const footerLinks = {
       { name: 'Work', href: '/work' },
       { name: 'About', href: '/about' },
       { name: 'Design Capabilities', href: '/services' },
-      { name: 'Blog', href: '/blog' },
       { name: 'Contact', href: '/contact' },
    ],
    services: [

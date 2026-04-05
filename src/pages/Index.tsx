@@ -11,6 +11,7 @@ import CTASection from '@/components/sections/CTASection';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import BackgroundSystem from '@/components/BackgroundSystem';
+import PricingSection from "@/components/sections/PricingSection";
 import { OrganizationSchema, WebsiteSchema, ProfessionalServiceSchema } from '@/components/StructuredData';
 
 const Index = () => {
@@ -39,6 +40,7 @@ const Index = () => {
             <HeroSection />
             <AboutSection />
             <ServicesSection />
+            <PricingSection />
             <WorkSection />
             <ProcessSection />
             <TestimonialsSection />
