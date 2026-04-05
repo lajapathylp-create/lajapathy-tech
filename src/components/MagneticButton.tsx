@@ -14,8 +14,8 @@ export const MagneticButton = ({ children, className = '', onClick }: MagneticBu
   const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current!.getBoundingClientRect();
-    const x = (clientX - (left + width / 2)) * 0.3;
-    const y = (clientY - (top + height / 2)) * 0.3;
+    const x = (clientX - (left + width / 2)) * 0.2;
+    const y = (clientY - (top + height / 2)) * 0.2;
     setPosition({ x, y });
   };
 

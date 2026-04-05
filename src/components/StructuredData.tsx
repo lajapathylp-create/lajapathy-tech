@@ -47,23 +47,20 @@ interface BreadcrumbItem {
 
 // Organization Schema - for the agency
 export const OrganizationSchema = ({
-  name = 'STUDIO',
-  url = 'https://studio.design',
-  logo = 'https://studio.design/logo.png',
-  description = 'Award-winning digital design agency specializing in brand identity, web design, and digital campaigns.',
-  email = 'hello@studio.design',
+  name = 'Lajapathy Tech',
+  url = 'https://lajapathy.com',
+  logo = 'https://lajapathy.com/logo.png',
+  description = 'Design subscription for growing teams—fast, flexible, and reliable.',
+  email = 'info@lajapathy.com',
   address = {
-    streetAddress: '123 Design Street',
-    addressLocality: 'San Francisco',
-    addressRegion: 'CA',
-    postalCode: '94102',
-    addressCountry: 'US',
+    streetAddress: 'Madurai',
+    addressLocality: 'Tamilnadu',
+    addressRegion: 'TN',
+    postalCode: '625001',
+    addressCountry: 'IN',
   },
   socialLinks = [
-    'https://twitter.com/studiodesign',
-    'https://linkedin.com/company/studiodesign',
-    'https://dribbble.com/studiodesign',
-    'https://instagram.com/studiodesign',
+    'https://www.linkedin.com/company/lajapathy/',
   ],
 }: OrganizationSchemaProps) => {
   const schema = {
@@ -104,11 +101,12 @@ export const ArticleSchema = ({
   dateModified,
   author,
   publisher = {
-    name: 'STUDIO',
-    logo: 'https://studio.design/logo.png',
+    name: 'Lajapathy Tech',
+    logo: 'https://lajapathy.com/logo.png',
   },
 }: ArticleSchemaProps) => {
   const schema = {
+// ... (rest of ArticleSchema)
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline,
@@ -131,7 +129,7 @@ export const ArticleSchema = ({
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': window.location.href,
+      '@id': typeof window !== 'undefined' ? window.location.href : '',
     },
   };
 
@@ -146,10 +144,11 @@ export const ArticleSchema = ({
 export const ServiceSchema = ({
   name,
   description,
-  provider = 'STUDIO',
+  provider = 'Lajapathy Tech',
   areaServed = 'Worldwide',
-  priceRange = '$$$$',
+  priceRange = '$$$',
 }: ServiceSchemaProps) => {
+// ...
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -195,12 +194,12 @@ export const WebsiteSchema = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'STUDIO',
-    url: 'https://studio.design',
-    description: 'Award-winning digital design agency',
+    name: 'Lajapathy Tech',
+    url: 'https://lajapathy.com',
+    description: 'Design subscription for growing teams',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://studio.design/search?q={search_term_string}',
+      target: 'https://lajapathy.com/search?q={search_term_string}',
       'query-input': 'required name=search_term_string',
     },
   };
@@ -217,23 +216,23 @@ export const ProfessionalServiceSchema = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'STUDIO',
-    image: 'https://studio.design/og-image.jpg',
-    '@id': 'https://studio.design',
-    url: 'https://studio.design',
-    telephone: '+1-555-123-4567',
+    name: 'Lajapathy Tech',
+    image: 'https://lajapathy.com/og-image.jpg',
+    '@id': 'https://lajapathy.com',
+    url: 'https://lajapathy.com',
+    email: 'info@lajapathy.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '123 Design Street',
-      addressLocality: 'San Francisco',
-      addressRegion: 'CA',
-      postalCode: '94102',
-      addressCountry: 'US',
+      streetAddress: 'Madurai',
+      addressLocality: 'Tamilnadu',
+      addressRegion: 'TN',
+      postalCode: '625001',
+      addressCountry: 'IN',
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 37.7749,
-      longitude: -122.4194,
+      latitude: 9.9252,
+      longitude: 78.1198,
     },
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
@@ -241,7 +240,7 @@ export const ProfessionalServiceSchema = () => {
       opens: '09:00',
       closes: '18:00',
     },
-    priceRange: '$$$$',
+    priceRange: '$$$',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.9',

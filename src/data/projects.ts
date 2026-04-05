@@ -21,7 +21,7 @@ export const projects: Project[] = [
   {
     id: 'luminary',
     title: 'Luminary',
-    category: 'Brand Identity',
+    category: 'Branding',
     year: '2024',
     client: 'Luminary Tech',
     heroImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=2000&q=80',
@@ -48,7 +48,7 @@ export const projects: Project[] = [
   {
     id: 'ethereal',
     title: 'Ethereal',
-    category: 'Web Design',
+    category: 'Websites',
     year: '2024',
     client: 'Ethereal Design Co.',
     heroImage: 'https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=2000&q=80',
@@ -75,7 +75,7 @@ export const projects: Project[] = [
   {
     id: 'zenith',
     title: 'Zenith',
-    category: 'Digital Campaign',
+    category: 'Product',
     year: '2023',
     client: 'Zenith Athletics',
     heroImage: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=2000&q=80',
@@ -102,7 +102,7 @@ export const projects: Project[] = [
   {
     id: 'cascade',
     title: 'Cascade',
-    category: 'Product Design',
+    category: 'Growth',
     year: '2023',
     client: 'Cascade Ventures',
     heroImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2000&q=80',
@@ -129,7 +129,7 @@ export const projects: Project[] = [
   {
     id: 'nexus',
     title: 'Nexus',
-    category: 'Mobile App',
+    category: 'Systems',
     year: '2022',
     client: 'Nexus Health',
     heroImage: 'https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&w=2000&q=80',
@@ -156,7 +156,7 @@ export const projects: Project[] = [
   {
     id: 'apex',
     title: 'Apex',
-    category: 'Fintech Dashboard',
+    category: 'Others',
     year: '2023',
     client: 'Apex Capital',
     heroImage: 'https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=2000&q=80',

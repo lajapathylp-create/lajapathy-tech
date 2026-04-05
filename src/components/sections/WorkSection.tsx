@@ -33,15 +33,8 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
             animate={{ scale: isHovered ? 1.05 : 1 }}
             transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
           />
-          
-          {/* Hover Overlay - Subtle Tint */}
-          <motion.div 
-            className="absolute inset-0 bg-black/10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          />
-          
+
+
           {/* View Project Button - Centered */}
           <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
             <div className="w-24 h-24 rounded-full bg-background/90 backdrop-blur-md flex items-center justify-center">
@@ -81,32 +74,25 @@ export const WorkSection = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="work" ref={ref} className="section-padding bg-secondary/30 relative overflow-hidden">
-      
-      {/* Decorative large text background */}
-      <div className="absolute top-20 left-0 w-full overflow-hidden opacity-[0.03] pointer-events-none select-none">
-         <h2 className="text-[20vw] font-syne font-black leading-none whitespace-nowrap animate-marquee">
-            SELECTED PROJECTS — SELECTED PROJECTS —
-         </h2>
-      </div>
+    <section id="work" ref={ref} className="section-padding bg-transparent relative overflow-hidden">
 
       <div className="container-wide relative z-10">
         {/* Header */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-24 items-end">
           <div className="md:col-span-8">
             <div className="flex items-center gap-4 mb-6">
-               <span className="w-3 h-3 bg-accent rounded-full animate-pulse"></span>
-               <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Featured Portfolio</span>
+              <span className="w-3 h-3 bg-accent rounded-full animate-pulse"></span>
+              <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Recent Work</span>
             </div>
             <AnimatedLine>
               <h2 className="font-syne font-bold text-5xl md:text-7xl tracking-tighter leading-[0.9]">
-                Crafting digital<br />
-                <span className="text-accent">masterpieces.</span>
+                Design outcomes,<br />
+                <span className="text-accent">delivered consistently.</span>
               </h2>
             </AnimatedLine>
           </div>
           <div className="md:col-span-4 md:text-right">
-             <Link
+            <Link
               to="/work"
               className="group inline-flex flex-col items-end gap-2"
             >

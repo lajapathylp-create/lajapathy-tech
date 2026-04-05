@@ -2,13 +2,13 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import MagneticButton from './MagneticButton';
+import logo from '@/assets/logo.png';
 
 const navLinks = [
   { name: 'Work', href: '/work', number: '01' },
   { name: 'About', href: '/about', number: '02' },
-  { name: 'Services', href: '/services', number: '03' },
-  { name: 'Blog', href: '/blog', number: '04' },
-  { name: 'Contact', href: '/contact', number: '05' },
+  { name: 'Capabilities', href: '/services', number: '03' },
+  { name: 'Contact', href: '/contact', number: '04' },
 ];
 
 export const Navigation = () => {
@@ -75,17 +75,15 @@ export const Navigation = () => {
         transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
         className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8"
       >
-        <motion.div 
-          className={`mx-auto transition-all duration-700 ${
-            isScrolled 
-              ? 'mt-4 max-w-5xl rounded-2xl bg-background/60 backdrop-blur-2xl border border-border/40 shadow-2xl shadow-background/20' 
-              : 'mt-0 max-w-full bg-transparent border-none shadow-none backdrop-blur-none'
-          }`}
+        <motion.div
+          className={`mx-auto transition-all duration-700 ${isScrolled
+            ? 'mt-4 max-w-5xl rounded-2xl bg-background/60 backdrop-blur-2xl border border-border/40 shadow-2xl shadow-background/20'
+            : 'mt-0 max-w-full bg-transparent border-none shadow-none backdrop-blur-none'
+            }`}
         >
-          <div className={`flex items-center justify-between transition-all duration-500 ${
-            isScrolled ? 'px-6 py-3' : 'py-6 md:py-8'
-          }`}>
-            
+          <div className={`flex items-center justify-between transition-all duration-500 ${isScrolled ? 'px-6 py-3' : 'py-6 md:py-8'
+            }`}>
+
             {/* Logo - Animated morphing design */}
             <Link to="/" className="group relative">
               <motion.div
@@ -93,41 +91,19 @@ export const Navigation = () => {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                {/* Animated logo mark */}
-                <motion.div 
-                  className="relative w-10 h-10 flex items-center justify-center"
-                  whileHover={{ rotate: 90 }}
-                  transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-                >
-                  <motion.div 
-                    className="absolute inset-0 border-2 border-foreground rounded-lg"
-                    whileHover={{ borderRadius: "50%" }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <span className="font-syne font-black text-lg">S</span>
-                </motion.div>
-                
-                {/* Logo text - only on desktop */}
-                <div className="hidden sm:block overflow-hidden">
-                  <motion.span 
-                    className="font-syne text-lg font-bold tracking-tight block"
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.3, duration: 0.6 }}
-                  >
-                    STUDIO
-                  </motion.span>
+                <div className="relative overflow-hidden">
+                  <img src={logo} alt="Lajapathy Tech Logo" className="h-12 w-auto" />
                 </div>
               </motion.div>
-              
+
               {/* Glow effect on hover */}
-              <motion.div 
+              <motion.div
                 className="absolute -inset-4 bg-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
               />
             </Link>
 
             {/* Desktop Navigation - Creative layout */}
-            <div 
+            <div
               className="hidden lg:flex items-center relative"
               onMouseMove={handleMouseMove}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -139,7 +115,7 @@ export const Navigation = () => {
                   style={{ x: springX, y: springY, translateX: '-50%', translateY: '-50%' }}
                 />
               )}
-              
+
               <div className="flex items-center">
                 {navLinks.map((link, index) => (
                   <Link
@@ -149,74 +125,62 @@ export const Navigation = () => {
                     className="group relative px-5 py-3"
                   >
                     {/* Number indicator */}
-                    <motion.span 
-                      className={`absolute -top-1 left-3 text-[10px] font-mono transition-all duration-300 ${
-                        hoveredIndex === index || isActiveLink(link.href) 
-                          ? 'text-accent opacity-100' 
-                          : 'text-muted-foreground/40 opacity-0'
-                      }`}
+                    <motion.span
+                      className={`absolute -top-1 left-3 text-[10px] font-mono transition-all duration-300 ${hoveredIndex === index || isActiveLink(link.href)
+                        ? 'text-accent opacity-100'
+                        : 'text-muted-foreground/40 opacity-0'
+                        }`}
                       initial={{ y: 5 }}
-                      animate={{ 
+                      animate={{
                         y: hoveredIndex === index || isActiveLink(link.href) ? 0 : 5,
                         opacity: hoveredIndex === index || isActiveLink(link.href) ? 1 : 0
                       }}
                     >
                       {link.number}
                     </motion.span>
-                    
+
                     {/* Link text with split animation */}
                     <span className="relative block overflow-hidden">
-                      <motion.span 
-                        className={`block text-sm font-medium tracking-wide transition-colors duration-300 ${
-                          isActiveLink(link.href) 
-                            ? 'text-accent' 
-                            : 'text-foreground/70 group-hover:text-foreground'
-                        }`}
-                        animate={{ 
-                          y: hoveredIndex === index ? -2 : 0 
+                      <motion.span
+                        className={`block text-sm font-medium tracking-wide transition-colors duration-300 ${isActiveLink(link.href)
+                          ? 'text-accent'
+                          : 'text-foreground/70 group-hover:text-foreground'
+                          }`}
+                        animate={{
+                          y: hoveredIndex === index ? -2 : 0
                         }}
                         transition={{ duration: 0.2 }}
                       >
                         {link.name}
                       </motion.span>
                     </span>
-                    
+
                     {/* Animated underline */}
-                    <motion.div 
+                    <motion.div
                       className="absolute bottom-2 left-5 right-5 h-px bg-accent origin-left"
                       initial={{ scaleX: 0 }}
-                      animate={{ 
-                        scaleX: isActiveLink(link.href) ? 1 : hoveredIndex === index ? 1 : 0 
+                      animate={{
+                        scaleX: isActiveLink(link.href) ? 1 : hoveredIndex === index ? 1 : 0
                       }}
                       transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
                     />
                   </Link>
                 ))}
               </div>
-              
+
               {/* Separator */}
               <div className={`w-px h-6 mx-4 transition-colors duration-500 ${isScrolled ? 'bg-border/50' : 'bg-transparent'}`} />
-              
+
               <div className="flex items-center gap-2">
                 {/* CTA Button with unique design */}
                 <MagneticButton className="group relative ml-2">
-                  <Link 
-                    to="/contact" 
+                  <Link
+                    to="/contact"
                     className="relative flex items-center gap-3 px-5 py-2.5 bg-foreground text-background rounded-full overflow-hidden"
                   >
-                    {/* Rotating border effect */}
-                    <motion.div
-                      className="absolute inset-0 rounded-full"
-                      style={{
-                        background: 'conic-gradient(from 0deg, transparent, hsl(var(--accent)), transparent)',
-                        padding: '2px',
-                      }}
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                    />
-                    
-                    <span className="relative z-10 text-sm font-semibold">Start a Project</span>
-                    
+
+                    <span className="relative z-10 text-sm font-semibold">Request Design Support</span>
+
                     {/* Animated arrow */}
                     <motion.div
                       className="relative z-10 w-5 h-5 rounded-full bg-background/20 flex items-center justify-center"
@@ -238,7 +202,7 @@ export const Navigation = () => {
                         />
                       </motion.svg>
                     </motion.div>
-                    
+
                     {/* Hover background */}
                     <motion.div
                       className="absolute inset-0 bg-accent -z-0"
@@ -253,7 +217,7 @@ export const Navigation = () => {
 
             {/* Tablet Navigation */}
             <div className="hidden md:flex lg:hidden items-center gap-4">
-              <Link 
+              <Link
                 to="/contact"
                 className="px-4 py-2 bg-foreground text-background text-sm font-medium rounded-full"
               >
@@ -289,40 +253,40 @@ export const Navigation = () => {
                 className="relative w-10 h-10 flex flex-col items-center justify-center"
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               >
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 rounded-full border border-foreground/20"
-                  animate={{ 
+                  animate={{
                     scale: isMobileMenuOpen ? 1.1 : 1,
                     borderColor: isMobileMenuOpen ? 'hsl(var(--accent))' : 'hsl(var(--foreground) / 0.2)'
                   }}
                   transition={{ duration: 0.3 }}
                 />
-                <motion.div 
+                <motion.div
                   className="absolute inset-1 rounded-full bg-muted/30"
                   animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
                   transition={{ duration: 0.5 }}
                 />
-                
+
                 {/* Morphing icon */}
                 <div className="relative w-5 h-5">
                   <motion.span
                     className="absolute top-1 left-0 right-0 h-0.5 bg-foreground rounded-full origin-center"
-                    animate={isMobileMenuOpen 
-                      ? { rotate: 45, y: 5, width: '100%' } 
+                    animate={isMobileMenuOpen
+                      ? { rotate: 45, y: 5, width: '100%' }
                       : { rotate: 0, y: 0, width: '100%' }
                     }
                   />
                   <motion.span
                     className="absolute top-[9px] left-0 h-0.5 bg-foreground rounded-full"
-                    animate={isMobileMenuOpen 
-                      ? { opacity: 0, x: 10 } 
+                    animate={isMobileMenuOpen
+                      ? { opacity: 0, x: 10 }
                       : { opacity: 1, x: 0, width: '60%' }
                     }
                   />
                   <motion.span
                     className="absolute bottom-1 left-0 right-0 h-0.5 bg-foreground rounded-full origin-center"
-                    animate={isMobileMenuOpen 
-                      ? { rotate: -45, y: -5, width: '100%' } 
+                    animate={isMobileMenuOpen
+                      ? { rotate: -45, y: -5, width: '100%' }
                       : { rotate: 0, y: 0, width: '80%' }
                     }
                   />
@@ -344,13 +308,13 @@ export const Navigation = () => {
             className="fixed inset-0 z-40 lg:hidden"
           >
             {/* Background with gradient */}
-            <motion.div 
+            <motion.div
               className="absolute inset-0 bg-background"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             />
-            
+
             {/* Animated grid lines */}
             <div className="absolute inset-0 overflow-hidden">
               {[...Array(5)].map((_, i) => (
@@ -376,7 +340,7 @@ export const Navigation = () => {
                 />
               ))}
             </div>
-            
+
             {/* Floating accent orb */}
             <motion.div
               className="absolute w-[300px] h-[300px] rounded-full bg-accent/10 blur-3xl"
@@ -404,21 +368,19 @@ export const Navigation = () => {
                       className="flex items-baseline gap-4 py-3 border-b border-border/20"
                     >
                       {/* Number */}
-                      <span className={`text-sm font-mono transition-colors duration-300 ${
-                        isActiveLink(link.href) ? 'text-accent' : 'text-muted-foreground/50 group-hover:text-accent'
-                      }`}>
+                      <span className={`text-sm font-mono transition-colors duration-300 ${isActiveLink(link.href) ? 'text-accent' : 'text-muted-foreground/50 group-hover:text-accent'
+                        }`}>
                         {link.number}
                       </span>
-                      
+
                       {/* Link text */}
-                      <span className={`text-4xl sm:text-5xl font-syne font-bold tracking-tight transition-all duration-300 ${
-                        isActiveLink(link.href) 
-                          ? 'text-accent' 
-                          : 'text-foreground/80 group-hover:text-foreground group-hover:translate-x-2'
-                      }`}>
+                      <span className={`text-3xl sm:text-4xl font-syne font-bold tracking-tight transition-all duration-300 ${isActiveLink(link.href)
+                        ? 'text-accent'
+                        : 'text-foreground/80 group-hover:text-foreground group-hover:translate-x-2'
+                        }`}>
                         {link.name}
                       </span>
-                      
+
                       {/* Arrow on hover */}
                       <motion.svg
                         width="24"
@@ -441,7 +403,7 @@ export const Navigation = () => {
                   </motion.div>
                 ))}
               </div>
-              
+
               {/* Bottom section */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -451,12 +413,12 @@ export const Navigation = () => {
                 className="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
               >
                 <div className="text-sm text-muted-foreground">
-                  <p>Ready to start a project?</p>
-                  <a href="mailto:hello@studio.design" className="text-foreground hover:text-accent transition-colors">
-                    hello@studio.design
+                  <p>Ready to start a Conversation?</p>
+                  <a href="mailto:info@lajapathy.com" className="text-foreground hover:text-accent transition-colors">
+                    info@lajapathy.com
                   </a>
                 </div>
-                
+
                 <Link
                   to="/contact"
                   onClick={() => setIsMobileMenuOpen(false)}

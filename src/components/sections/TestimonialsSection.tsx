@@ -6,24 +6,24 @@ import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 1,
-    quote: "Working with STUDIO was transformative. They didn't just deliver a website—they crafted an experience that perfectly captures our brand's essence.",
-    author: 'Sarah Chen',
-    role: 'CEO, Luminary Tech',
-    avatar: 'SC',
+    quote: "We stopped hiring designers altogether. Their subscription gave us consistent, high-quality output without the overhead or delays.",
+    author: 'Arjun Mehta',
+    role: 'Head of Product, <br/>FinFlow (SaaS)',
+    avatar: 'AM',
   },
   {
     id: 2,
-    quote: "Their attention to detail and creative vision exceeded every expectation. The results speak for themselves—our engagement has never been higher.",
-    author: 'Michael Rivera',
-    role: 'Founder, Cascade Ventures',
-    avatar: 'MR',
+    quote: "Design moved from a bottleneck to a growth driver. <br/>What used to take weeks now ships in days—with better quality every time.",
+    author: 'Neha Kapoor',
+    role: 'Founder, <br/>PayNest (Fintech)',
+    avatar: 'NK',
   },
   {
     id: 3,
-    quote: "A true partnership from day one. They challenged our thinking, pushed boundaries, and delivered work we're incredibly proud of.",
-    author: 'Emma Watson',
-    role: 'CMO, Ethereal Design',
-    avatar: 'EW',
+    quote: "It feels like having an in-house design team—without managing one. <br/>From product UI to marketing assets, everything just flows.",
+    author: 'Rohit Iyer',
+    role: 'Marketing Lead, <br/>UrbanKart (D2C Brand)',
+    avatar: 'RI',
   },
 ];
 
@@ -48,20 +48,8 @@ export const TestimonialsSection = () => {
   const prevSlide = () => setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section ref={ref} className="section-padding bg-secondary/30 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={`line-${i}`}
-            className="absolute left-0 right-0 h-px bg-foreground/5"
-            style={{ top: `${25 * (i + 1)}%` }}
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
-            transition={{ delay: i * 0.1, duration: 1.2 }}
-          />
-        ))}
-      </div>
+    <section ref={ref} className="section-padding bg-transparent relative overflow-hidden">
+
 
       {/* Large quote decoration */}
       <motion.div
@@ -84,13 +72,12 @@ export const TestimonialsSection = () => {
               className="flex items-center gap-4 mb-8"
             >
               <span className="text-sm font-mono text-accent">05</span>
-              <div className="h-px w-12 bg-accent" />
               <span className="text-sm font-mono text-muted-foreground tracking-wider">TESTIMONIALS</span>
             </motion.div>
 
             <AnimatedLine delay={0.3}>
               <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1]">
-                Words from those we've worked with.
+                Words from those<br />we've worked with.
               </h2>
             </AnimatedLine>
           </div>
@@ -141,7 +128,7 @@ export const TestimonialsSection = () => {
 
                   {/* Quote text */}
                   <blockquote className="font-syne text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed mb-8">
-                    "{testimonial.quote}"
+                    <span dangerouslySetInnerHTML={{ __html: `"${testimonial.quote}"` }} />
                   </blockquote>
 
                   {/* Author */}
@@ -151,7 +138,7 @@ export const TestimonialsSection = () => {
                     </div>
                     <div>
                       <span className="font-syne font-semibold block">{testimonial.author}</span>
-                      <span className="text-sm text-muted-foreground">{testimonial.role}</span>
+                      <span className="text-sm text-muted-foreground" dangerouslySetInnerHTML={{ __html: testimonial.role }} />
                     </div>
                   </div>
 
@@ -171,9 +158,8 @@ export const TestimonialsSection = () => {
                 onClick={() => setActiveIndex(index)}
                 className="group relative h-2 transition-all duration-300"
               >
-                <div className={`w-12 h-full transition-all duration-300 ${
-                  activeIndex === index ? 'bg-accent' : 'bg-border hover:bg-border/80'
-                }`} />
+                <div className={`w-12 h-full transition-all duration-300 ${activeIndex === index ? 'bg-accent' : 'bg-border hover:bg-border/80'
+                  }`} />
                 {activeIndex === index && (
                   <motion.div
                     className="absolute inset-0 bg-accent"
@@ -184,7 +170,7 @@ export const TestimonialsSection = () => {
             ))}
           </div>
         </div>
-
+        <br /> <br /><br /><br />
         {/* Client Marquee */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -200,7 +186,7 @@ export const TestimonialsSection = () => {
           <div className="relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-secondary/30 to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-secondary/30 to-transparent z-10" />
-            
+
             <motion.div
               animate={{ x: ['0%', '-50%'] }}
               transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}

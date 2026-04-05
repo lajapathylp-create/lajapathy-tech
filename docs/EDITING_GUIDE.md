@@ -1,6 +1,6 @@
 # Editing Guide - Lumina Creative Hub
 
-Panduan ini menjelaskan cara mengedit komponen-komponen utama di proyek ini.
+This guide explains how to edit the main components of this project.
 
 ---
 
@@ -9,14 +9,12 @@ Panduan ini menjelaskan cara mengedit komponen-komponen utama di proyek ini.
 1. [HeroSection](#1-herosection)
 2. [WorkSection](#2-worksection)
 3. [ProcessSection](#3-processsection)
-4. [Footer](#4-footer)
-5. [Data Projects](#5-data-projects)
-
+4. [Footer] (#4-footer)
+5. [Data Projects] (#5-data-projects)
 ---
-
 ## 1. HeroSection
 
-**Lokasi File:** `src/components/sections/HeroSection.tsx`
+**Location File:** `src/components/sections/HeroSection.tsx`
 
 ### 1.1 Mengubah Headline Utama
 
@@ -31,9 +29,9 @@ const words = [
 ];
 ```
 
-- **`text`**: Kata yang ditampilkan
+- **`text`**: Kata yang is displayed
 - **`number`**: Nomor kecil di samping kata (e.g., '01')
-- **`accent: true`**: Menandai kata dengan warna aksen (coral/oranye)
+- **`accent: true`**: Menandai kata dengan warna aksen (coral/orange)
 
 **Contoh:** Mengubah ke "We Build Amazing Websites":
 ```tsx
@@ -45,6 +43,7 @@ const words = [
 ];
 ```
 
+
 ### 1.2 Mengubah Label Atas
 
 Cari teks "DIGITAL AGENCY — SINCE 2018":
@@ -55,11 +54,11 @@ Cari teks "DIGITAL AGENCY — SINCE 2018":
 </span>
 ```
 
-Ganti teks sesuai kebutuhan.
+Ganti teks suasai kehowana.
 
 ### 1.3 Mengubah Deskripsi
 
-Cari paragraf deskripsi:
+Cari paragraph description:
 
 ```tsx
 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
@@ -70,7 +69,7 @@ Cari paragraf deskripsi:
 
 ### 1.4 Mengubah Statistik
 
-Cari array statistik:
+Cari array statistics:
 
 ```tsx
 {[
@@ -81,11 +80,11 @@ Cari array statistik:
 ].map((stat, i) => (
 ```
 
-Edit `number` dan `label` sesuai data Anda.
+Edit `number` and `label` according to data Anda.
 
 ### 1.5 Mengubah Gambar Latar Belakang
 
-Ganti import di bagian atas file:
+Ganti import di portiona atas file:
 
 ```tsx
 import heroBg from '@/assets/hero-bg.jpg';
@@ -93,9 +92,9 @@ import heroBg from '@/assets/hero-bg.jpg';
 
 Atau ganti file `src/assets/hero-bg.jpg` dengan gambar baru (pastikan nama sama).
 
-### 1.6 Menyesuaikan Kecerahan Gambar
+### 1.6 Mernubikan Kecerahan Gambar
 
-Cari class `opacity-40` pada elemen gambar:
+Cari class `opacity-40` pada element image:
 
 ```tsx
 <img 
@@ -105,9 +104,9 @@ Cari class `opacity-40` pada elemen gambar:
 />
 ```
 
-- `opacity-40`: 40% terlihat (lebih gelap)
-- `opacity-60`: 60% terlihat (lebih terang)
-- `opacity-20`: 20% terlihat (sangat gelap)
+- `opacity-40`: 40% dark (lebih gelap)
+- `opacity-60`: 60% visible (lebih terang)
+- `opacity-20`: 20% visible (sangat gelap)
 
 ### 1.7 Mengubah Tombol CTA
 

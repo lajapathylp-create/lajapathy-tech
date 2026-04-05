@@ -32,7 +32,7 @@ A modern, premium digital agency template built with React, TypeScript, Tailwind
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/lptpl/lumina-creative-hub.git
 
 # Navigate to project directory
 cd lumina-creative-hub

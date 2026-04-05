@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Share2, Linkedin } from 'lucide-react';
 import { getBlogPostById, getRelatedPosts } from '@/data/blog';
 import SEO from '@/components/SEO';
 import { ArticleSchema, BreadcrumbSchema } from '@/components/StructuredData';
@@ -42,7 +42,7 @@ const BlogPost = () => {
         title={post.title}
         description={post.excerpt}
         image={post.image}
-        url={`https://studio.design/blog/${post.id}`}
+        url={`https://lajapathy.com/blog/${post.id}`}
         type="article"
         author={post.author.name}
         publishedTime={post.date}
@@ -58,9 +58,9 @@ const BlogPost = () => {
       />
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: 'https://studio.design' },
-          { name: 'Blog', url: 'https://studio.design/blog' },
-          { name: post.title, url: `https://studio.design/blog/${post.id}` },
+          { name: 'Home', url: 'https://lajapathy.com' },
+          { name: 'Blog', url: 'https://lajapathy.com/blog' },
+          { name: post.title, url: `https://lajapathy.com/blog/${post.id}` },
         ]}
       />
       
@@ -191,17 +191,14 @@ const BlogPost = () => {
                     {/* Share */}
                     <div>
                        <p className="font-mono text-xs uppercase tracking-widest text-foreground/40 mb-6">Share</p>
-                       <div className="flex gap-4">
-                          <button className="w-10 h-10 border border-foreground/10 rounded-full flex items-center justify-center hover:bg-foreground hover:text-background transition-all">
-                             <Twitter className="w-4 h-4" />
-                          </button>
-                          <button className="w-10 h-10 border border-foreground/10 rounded-full flex items-center justify-center hover:bg-foreground hover:text-background transition-all">
-                             <Linkedin className="w-4 h-4" />
-                          </button>
-                          <button className="w-10 h-10 border border-foreground/10 rounded-full flex items-center justify-center hover:bg-foreground hover:text-background transition-all">
-                             <Share2 className="w-4 h-4" />
-                          </button>
-                       </div>
+                        <div className="flex gap-4">
+                           <button className="w-10 h-10 border border-foreground/10 rounded-full flex items-center justify-center hover:bg-foreground hover:text-background transition-all">
+                              <Linkedin className="w-4 h-4" />
+                           </button>
+                           <button className="w-10 h-10 border border-foreground/10 rounded-full flex items-center justify-center hover:bg-foreground hover:text-background transition-all">
+                              <Share2 className="w-4 h-4" />
+                           </button>
+                        </div>
                     </div>
                  </div>
               </aside>

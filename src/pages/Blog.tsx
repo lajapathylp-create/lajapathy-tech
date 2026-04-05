@@ -58,29 +58,7 @@ const Blog = () => {
 
         {/* Hero Section */}
         <section ref={heroRef} className="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
-          {/* Grid overlay */}
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={`h-${i}`}
-                className="absolute left-0 right-0 h-px bg-foreground/5"
-                style={{ top: `${16.66 * (i + 1)}%` }}
-                initial={{ scaleX: 0 }}
-                animate={heroInView ? { scaleX: 1 } : {}}
-                transition={{ delay: i * 0.05, duration: 1.2 }}
-              />
-            ))}
-            {[...Array(4)].map((_, i) => (
-              <motion.div
-                key={`v-${i}`}
-                className="absolute top-0 bottom-0 w-px bg-foreground/5"
-                style={{ left: `${25 * (i + 1)}%` }}
-                initial={{ scaleY: 0 }}
-                animate={heroInView ? { scaleY: 1 } : {}}
-                transition={{ delay: 0.2 + i * 0.05, duration: 1.2 }}
-              />
-            ))}
-          </div>
+
 
           {/* Floating shapes */}
           <motion.div
@@ -92,11 +70,7 @@ const Blog = () => {
             style={{ x: mousePosition.x * -2, y: mousePosition.y * -2 }}
           />
 
-          {/* Accent orb */}
-          <motion.div
-            className="absolute w-[400px] h-[400px] rounded-full bg-accent/10 blur-[120px] pointer-events-none"
-            style={{ top: '20%', right: '10%', x: mousePosition.x * 3, y: mousePosition.y * 3 }}
-          />
+
 
           <div className="container-wide relative z-10">
             {/* Section header */}
@@ -107,7 +81,6 @@ const Blog = () => {
               className="flex items-center gap-4 mb-12"
             >
               <span className="text-sm font-mono text-accent">01</span>
-              <div className="h-px w-12 bg-accent" />
               <span className="text-sm font-mono text-muted-foreground tracking-wider">BLOG</span>
             </motion.div>
 
@@ -151,7 +124,6 @@ const Blog = () => {
               >
                 <div className="flex items-center gap-4 mb-8">
                   <span className="text-sm font-mono text-accent">02</span>
-                  <div className="h-px w-12 bg-accent" />
                   <span className="text-sm font-mono text-muted-foreground tracking-wider">FEATURED</span>
                 </div>
 
@@ -225,8 +197,7 @@ const Blog = () => {
             >
               <div className="flex items-center gap-4 mb-8">
                 <span className="text-sm font-mono text-accent">03</span>
-                <div className="h-px w-12 bg-accent" />
-                <span className="text-sm font-mono text-muted-foreground tracking-wider">ALL ARTICLES</span>
+                 <span className="text-sm font-mono text-muted-foreground tracking-wider">ALL ARTICLES</span>
               </div>
 
             <div className="border border-border bg-card">

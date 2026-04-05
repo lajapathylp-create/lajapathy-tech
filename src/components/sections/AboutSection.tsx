@@ -3,9 +3,9 @@ import { useRef, useState } from 'react';
 import { AnimatedLine } from '@/components/AnimatedText';
 
 const stats = [
-  { number: '150+', label: 'Projects', description: 'Successfully delivered' },
-  { number: '12', label: 'Awards', description: 'Industry recognition' },
-  { number: '98%', label: 'Happy Clients', description: 'Satisfaction rate' },
+  { number: '150+', label: 'Design Requests Delivered', description: 'Successfully delivered' },
+  { number: '18', label: 'Designers Available', description: 'Industry recognition' },
+  { number: '98%', label: 'Client Retention Rate', description: 'Satisfaction rate' },
 ];
 
 export const AboutSection = () => {
@@ -22,46 +22,15 @@ export const AboutSection = () => {
   };
 
   return (
-    <section 
-      id="about" 
-      ref={ref} 
+    <section
+      id="about"
+      ref={ref}
       onMouseMove={handleMouseMove}
-      className="section-padding bg-secondary/30 relative overflow-hidden"
+      className="section-padding bg-transparent relative overflow-hidden"
     >
-      {/* Grid overlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={`h-${i}`}
-            className="absolute left-0 right-0 h-px bg-foreground/5"
-            style={{ top: `${16.66 * (i + 1)}%` }}
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
-            transition={{ delay: i * 0.05, duration: 1.2 }}
-          />
-        ))}
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={`v-${i}`}
-            className="absolute top-0 bottom-0 w-px bg-foreground/5"
-            style={{ left: `${25 * (i + 1)}%` }}
-            initial={{ scaleY: 0 }}
-            animate={isInView ? { scaleY: 1 } : {}}
-            transition={{ delay: 0.2 + i * 0.05, duration: 1.2 }}
-          />
-        ))}
-      </div>
 
-      {/* Floating accent orb */}
-      <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] pointer-events-none"
-        style={{
-          x: mousePosition.x * 2,
-          y: mousePosition.y * 2,
-          top: '20%',
-          right: '10%',
-        }}
-      />
+
+
 
       <div className="container-wide relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
@@ -75,30 +44,27 @@ export const AboutSection = () => {
               className="flex items-center gap-4 mb-8"
             >
               <span className="text-sm font-mono text-accent">01</span>
-              <div className="h-px w-12 bg-accent" />
-              <span className="text-sm font-mono text-muted-foreground tracking-wider">ABOUT US</span>
+              <span className="text-sm font-mono text-muted-foreground tracking-wider">WHY LP TECH</span>
             </motion.div>
 
             <AnimatedLine delay={0.2}>
               <h2 className="font-syne font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight mb-8 leading-[1.1]">
-                We are a team of creative minds & craftsmen.
+                Your dedicated design partner
               </h2>
             </AnimatedLine>
 
             <div className="space-y-6 mb-10">
               <AnimatedLine delay={0.4}>
                 <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
-                  Founded in 2019, our studio has been at the forefront of digital innovation. 
-                  We blend strategy, creativity, and technology to build experiences that 
-                  resonate with audiences and drive meaningful results.
+                  We work as an extension of your team—delivering consistent, high-quality UI/UX, product, and brand design through a flexible subscription model.
+
+                  No hiring, no onboarding delays, and no bottlenecks. Just reliable design support that adapts to your pace and priorities.
                 </p>
               </AnimatedLine>
 
               <AnimatedLine delay={0.5}>
                 <p className="text-muted-foreground leading-relaxed max-w-xl">
-                  Our approach is rooted in collaboration. We work closely with brands 
-                  to understand their vision, challenge conventions, and create work 
-                  that stands apart in today's crowded digital landscape.
+                  Whether you’re building from scratch or scaling an existing product, we help teams move faster and maintain design consistency across every touchpoint.
                 </p>
               </AnimatedLine>
             </div>
@@ -111,7 +77,7 @@ export const AboutSection = () => {
               className="grid grid-cols-3 gap-8 py-8 border-t border-border/50"
             >
               {stats.map((stat, i) => (
-                <motion.div 
+                <motion.div
                   key={stat.label}
                   className="group relative"
                   initial={{ opacity: 0, y: 20 }}
@@ -141,13 +107,13 @@ export const AboutSection = () => {
             }}
           >
             {/* Decorative frame */}
-            <motion.div 
+            <motion.div
               className="absolute -top-4 -right-4 w-full h-full border border-accent/30"
               initial={{ opacity: 0, x: 20, y: -20 }}
               animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
               transition={{ delay: 0.6, duration: 0.8 }}
             />
-            
+
             <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
               <img
                 src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80"
@@ -155,12 +121,12 @@ export const AboutSection = () => {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-              
+
               {/* Corner decorations */}
               <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-accent/50" />
               <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-accent/50" />
             </div>
-            
+
             {/* Floating badge */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
@@ -169,7 +135,7 @@ export const AboutSection = () => {
               className="absolute -left-6 bottom-12 bg-background border border-border px-6 py-4 shadow-xl"
             >
               <span className="text-xs font-mono text-muted-foreground">ESTABLISHED</span>
-              <span className="block font-syne font-bold text-3xl mt-1">2019</span>
+              <span className="block font-syne font-bold text-3xl mt-1">2006</span>
             </motion.div>
 
             {/* Side label */}

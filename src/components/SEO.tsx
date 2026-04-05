@@ -14,14 +14,16 @@ interface SEOProps {
 }
 
 const defaultMeta = {
-  siteName: 'STUDIO',
-  title: 'STUDIO | Digital Design Agency',
-  description: 'We craft exceptional digital experiences through strategic design, innovative development, and creative storytelling. Transform your brand with our award-winning team.',
+  siteName: 'Lajapathy Tech',
+  title: 'Design Subscription Service for Startups & Teams',
+  description: 'Unlimited UI UX design, product design, and web design subscription. Fast turnaround, no hiring, no delays.',
   image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
-  url: 'https://studio.design',
-  twitterHandle: '@studiodesign',
+  url: 'https://lajapathytech.com',
   locale: 'en_US',
 };
+
+
+
 
 const SEO = ({
   title,
@@ -47,7 +49,7 @@ const SEO = ({
       <meta name="robots" content="index, follow" />
       <meta name="language" content="English" />
       <meta name="revisit-after" content="7 days" />
-      
+
       {/* Canonical URL */}
       <link rel="canonical" href={url} />
 
@@ -79,19 +81,40 @@ const SEO = ({
         <meta key={index} property="article:tag" content={tag} />
       ))}
 
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={url} />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
-      <meta name="twitter:site" content={defaultMeta.twitterHandle} />
-      <meta name="twitter:creator" content={defaultMeta.twitterHandle} />
-
       {/* Additional SEO */}
       <meta name="theme-color" content="#0a0a0a" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Lajapathy Tech",
+          "url": "https://lajapathytech.com",
+          "logo": "https://lajapathytech.com/assets/logo-xQUAWj0S.png",
+          "sameAs": [
+            "https://www.linkedin.com/company/lajapathy/"
+          ],
+          "description": "Design subscription service offering UI UX, product design, and web design for startups and teams.",
+        })}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Design Subscription Service",
+          "provider": {
+            "@type": "Organization",
+            "name": "Lajapathy Tech"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "India"
+          },
+          "description": "Unlimited design subscription including UI UX, web design, and product design delivered fast.",
+        })}
+      </script>
+
     </Helmet>
   );
 };

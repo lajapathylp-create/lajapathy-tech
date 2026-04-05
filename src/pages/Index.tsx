@@ -10,44 +10,44 @@ import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CTASection from '@/components/sections/CTASection';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
+import BackgroundSystem from '@/components/BackgroundSystem';
 import { OrganizationSchema, WebsiteSchema, ProfessionalServiceSchema } from '@/components/StructuredData';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <SEO 
-        title="Award-Winning Digital Agency"
-        description="We craft exceptional digital experiences through strategic design, innovative development, and creative storytelling. Transform your brand with our award-winning team."
-        url="https://studio.design"
+    <div className="min-h-screen bg-transparent">
+      <SEO
+        title="Unlimited Design Subscription Service for Startups & Teams"
+        description="Unlimited UI UX design, product design, and web design subscription. Fast turnaround, no hiring, no delays. Built for startups and growing teams."
+        url="https://lajapathytech.com"
       />
+
       <OrganizationSchema />
-      <WebsiteSchema />
       <ProfessionalServiceSchema />
 
       <CustomCursor />
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        {/* Noise overlay for texture */}
-        <div className="noise-overlay" />
-        
-        <Navigation />
-        
-        <main>
-          <HeroSection />
-          <AboutSection />
-          <ServicesSection />
-          <WorkSection />
-          <ProcessSection />
-          <TestimonialsSection />
-          <CTASection />
-        </main>
-        
-        <Footer />
-      </motion.div>
+      <BackgroundSystem>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Navigation />
+
+          <main>
+            <HeroSection />
+            <AboutSection />
+            <ServicesSection />
+            <WorkSection />
+            <ProcessSection />
+            <TestimonialsSection />
+            <CTASection />
+          </main>
+
+          <Footer />
+        </motion.div>
+      </BackgroundSystem>
     </div>
   );
 };
